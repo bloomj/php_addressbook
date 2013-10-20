@@ -6,7 +6,7 @@ Overview
 This is simple address book application that is built from a typical LAMP stack.
 
 A few of my coworkers expressed interest in learning some basics of software engineering and methodologies.  A coworker of
-mine (oweneustice) volunteered to put together a sample tutorial to follow through on building software on a LAMP stack.  Given my lack
+mine ([oweneustice](https://github.com/oweneustice)) volunteered to put together a sample tutorial to follow through on building software on a LAMP stack.  Given my lack
 of experience with PHP and developing on a Linux platform, I've decided to join in on the fun.
 
 The project serves as a starting point to refresh memory of or learn about new/existing languages, frameworks, design patterns, etc.
@@ -15,7 +15,6 @@ Currently demonstrates
 -------------------------
 * Eclipse
 * PHP
-* Maven
 * Apache
 * MySQL
   
