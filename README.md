@@ -1,7 +1,6 @@
-php_addressbook
+PHP Address Book
 ===============
 
-<<<<<<< HEAD
 Overview
 -------------------------
 This is simple address book application that is built from a typical LAMP stack.
@@ -28,6 +27,3 @@ Notes
 -------------------------
 * Requirements for the address book functionality are based off the artifacts provided [here](http://www.cs.gordon.edu/courses/cs211/AddressBookExample/).
 * Setup of the LAMP environment and design follows [this article](https://hackpad.com/Part-1-Virtual-Development-Environment-Wg5EtzZA9o2) up until my eventual divergence.
-=======
-PHP Address book
->>>>>>> refs/heads/master
