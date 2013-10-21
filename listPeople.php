@@ -1,3 +1,3 @@
 <?php
-	include '/_includes/db.inc.php';
+	include '_includes/db.inc.php';
 ?>
