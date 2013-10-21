@@ -1,4 +1,4 @@
 <?php
 	include '/_includes/dbConn.php';
-	echo 'test6';
+	echo 'test7';
 ?>
