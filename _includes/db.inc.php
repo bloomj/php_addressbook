@@ -1,5 +1,9 @@
 <?php 
 
+if(!file_exists("/resources/properties.ini")) {
+	throw new Exception('Cannot find properties.ini');
+}
+
 $ini_array = parse_ini_file("/resources/properties.ini", true);
 
 $db_ip = $ini_array["db_config"]["db_ip"];
