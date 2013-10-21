@@ -21,12 +21,9 @@ echo 'Got IP: "'.$db_ip.'".<br/>';
 //echo 'Got pass: "'.$db_pass.'".<br/>';
 echo 'Got Database: "'.$db_default.'".<br/>';
 
-$db_handle = mysql_connect($db_ip,$db_user,$db_pass,$db_default);
-if($db_handle===false) {
+$db_handle = new mysqli($db_ip,$db_user,$db_pass,$db_default);
+if($db_handle===null) {
 	echo 'ERROR: Could not connect to mysql database at "'.$db_ip.'".<br/>';
-    if($CONF['debug']) { 
-    	mysql_error(); 
-    }
 }
 echo 'Connected successfully to mysql database: "'.$db_ip.'".<br/>'
 ?>
