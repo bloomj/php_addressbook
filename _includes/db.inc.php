@@ -1,13 +1,13 @@
 <?php 
 
-if(!file_exists("../resources/properties.ini")) {
-	echo 'Cannot find ../resources/properties.ini';
+if(!file_exists($_SERVER['DOCUMENT_ROOT']."/resources/properties.ini")) {
+	echo 'Cannot find '.$_SERVER['DOCUMENT_ROOT'].'/resources/properties.ini<br/>';
 }
 else {
-	echo 'Found ../resources/properties.ini';
+	echo 'Found '.$_SERVER['DOCUMENT_ROOT'].'/resources/properties.ini<br/>';
 }
 
-$ini_array = parse_ini_file("../resources/properties.ini", true);
+$ini_array = parse_ini_file($_SERVER['DOCUMENT_ROOT']."/resources/properties.ini", true);
 
 $db_ip = $ini_array["db_config"]["db_ip"];
 $db_user = $ini_array["db_config"]["db_user"];
