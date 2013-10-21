@@ -1,4 +1,3 @@
 <?php
-	include '/_includes/dbConn.php';
-	echo 'test9';
+	include '/_includes/db.inc.php';
 ?>
