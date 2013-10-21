@@ -1,11 +1,7 @@
 <?php
 	include '_includes/db.inc.php';
-	try {
-		$result = $db_handle->query("SELECT * FROM person ORDER BY last_name DESC;");
-	}
-	catch (Exception $e) {
-		echo 'Caught exception: '.$e->getMessage()."<br/>";
-	}
+	$query = "SELECT * FROM person ORDER BY last_name DESC;";
+	$result = $db_handle->query($query) or die ("<b>Query failed:</b> ".mysql_error());
 ?>
 <table>
 	<tr>
@@ -19,6 +15,6 @@
         	echo "<td>${row['last_name']}</td>\n";
         	echo "</tr>\n";
     	}
-    mysql_free_result($result);
+    mysql_close($db_handle);
 	?>
 </table>
