@@ -1,6 +1,6 @@
 <?php
 	include '_includes/db.inc.php';
-	$result = $db_handle->query("SELECT * FROM person ORDER BY last_name DESC);");
+	$result = $db_handle->query("SELECT * FROM person ORDER BY last_name DESC;");
 ?>
 <table>
 	<tr>
