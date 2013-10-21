@@ -1,21 +1,23 @@
 <?php 
 
-if(!file_exists($_SERVER['DOCUMENT_ROOT']."/resources/properties.ini")) {
-	echo 'Cannot find '.$_SERVER['DOCUMENT_ROOT'].'/resources/properties.ini<br/>';
+$prop_file_path = $_SERVER['DOCUMENT_ROOT']."/resources/properties.ini";
+
+if(!file_exists($prop_file_path)) {
+	echo 'Cannot find '.$prop_file_path.'<br/>';
 }
 else {
-	echo 'Found '.$_SERVER['DOCUMENT_ROOT'].'/resources/properties.ini<br/>';
+	echo 'Found '.$prop_file_path.'<br/>';
 }
 
-$ini_array = parse_ini_file($_SERVER['DOCUMENT_ROOT']."/resources/properties.ini", true);
+$ini_array = parse_ini_file($prop_file_path, true);
 
 $db_ip = $ini_array["db_config"]["db_ip"];
 $db_user = $ini_array["db_config"]["db_user"];
 $db_pass = $ini_array["db_config"]["db_pass"];
 
 echo 'Got IP: "'.$db_ip.'".<br/>';
-echo 'Got user: "'.$db_user.'".<br/>';
-echo 'Got pass: "'.$db_pass.'".<br/>';
+//echo 'Got user: "'.$db_user.'".<br/>';
+//echo 'Got pass: "'.$db_pass.'".<br/>';
 
 $db_handle = mysql_connect($db_ip,$db_user,$db_pass);
 if($db_handle===false) {
