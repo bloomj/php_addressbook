@@ -1,6 +1,11 @@
 <?php
 	include '_includes/db.inc.php';
-	$result = $db_handle->query("SELECT * FROM person ORDER BY last_name DESC;");
+	try {
+		$result = $db_handle->query("SELECT * FROM person ORDER BY last_name DESC;");
+	}
+	catch (Exception $e) {
+		echo 'Caught exception: ',  $e->getMessage(), "\n";
+	}
 ?>
 <table>
 	<tr>
