@@ -1,6 +1,6 @@
 <?php 
 
-$ini_array = parse_ini_file("/resources/properties.ini", false);
+$ini_array = parse_ini_file("/resources/properties.ini", true);
 
 $db_ip = $ini_array["db_config"]["db_ip"];
 $db_user = $ini_array["db_config"]["db_user"];
