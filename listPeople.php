@@ -15,6 +15,5 @@
         	echo "<td>${row['last_name']}</td>\n";
         	echo "</tr>\n";
     	}
-    mysql_close($db_handle);
 	?>
 </table>
