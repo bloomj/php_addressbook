@@ -17,6 +17,7 @@ Currently demonstrates
 * PHP
 * Apache
 * MySQL
+* log4php
   
 TODO
 -------------------------
