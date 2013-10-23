@@ -8,7 +8,7 @@
 		<param name="datePattern" value="Y-m-d" />
 	</appender>
 	<root>
-		<level value="info" />
+		<level value="trace" />
 		<appender_ref ref="default" />
 	</root>
 </configuration>
