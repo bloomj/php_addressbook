@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration xmlns="http://logging.apache.org/log4php/">
-	<appender name="default" class="LoggerAppenderDailyFile" threshold="INFO">
+	<appender name="default" class="LoggerAppenderDailyFile">
 		<layout class="LoggerLayoutPattern">
-			<param name="conversionPattern" value="%date [%process] %logger %-5level %file %class.%msg%n" />
+			<param name="conversionPattern" value="%date [%process] %logger %-5level %file.%class: %msg%n" />
 		</layout>
 		<param name="file" value="/var/log/apache2/php_addressbook-%s.log" />
 		<param name="datePattern" value="Y-m-d" />
 	</appender>
 	<root>
+		<level value="info" />
 		<appender_ref ref="default" />
 	</root>
 </configuration>
