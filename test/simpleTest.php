@@ -8,7 +8,7 @@ class simpleTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("test123", $testStr);
  
         echo 'Checking string with assertFalse'.PHP_EOL;
-        $this->assertFalse($testStr != "test");
+        $this->assertFalse($testStr == "test");
         
         echo 'Checking string with assertNotEquals'.PHP_EOL;
         $this->assertNotEquals("test", $testStr);
