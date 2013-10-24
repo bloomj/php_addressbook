@@ -4,7 +4,10 @@ include_once($logger_path);
 
 class simpleTest extends PHPUnit_Framework_TestCase
 {
+	private static $testlog;
+	
 	public static function setUpBeforeClass() {
+		$testlog = Logger::getLogger('unittest');
 		$testlog->trace('Setting up simpleTest class');
 	}
 	
