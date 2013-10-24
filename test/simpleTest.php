@@ -1,5 +1,5 @@
 <?php
-$logger_path = $_SERVER['DOCUMENT_ROOT']."/_includes/logger.php";
+$logger_path = "/var/www/_includes/logger.php";
 include_once($logger_path);
 
 class simpleTest extends PHPUnit_Framework_TestCase
