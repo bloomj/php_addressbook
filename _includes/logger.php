@@ -8,4 +8,5 @@ Logger::configure($log4php_config_path);
 
 // Fetch a logger, it will inherit settings from the root logger
 $log = Logger::getLogger('default');
+$testlog = Logger::getLogger('unittest');
 ?>

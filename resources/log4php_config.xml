@@ -7,8 +7,18 @@
 		<param name="file" value="/var/log/apache2/php_addressbook-%s.log" />
 		<param name="datePattern" value="Y-m-d" />
 	</appender>
+	<appender name="echo" class="LoggerAppenderEcho">
+		<layout class="LoggerLayoutPattern">
+			<param name="conversionPattern" value="%date [%process] %logger %-5level %file.%class: %msg%n" />
+		</layout>
+		<param name="htmlLineBreaks" value="false" />
+	</appender>
 	<root>
 		<level value="trace" />
 		<appender_ref ref="default" />
 	</root>
+	<logger name="unittest">
+		<level value="trace" />
+		<appender_ref ref="echo" />
+	</logger>
 </configuration>

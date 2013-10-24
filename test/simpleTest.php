@@ -1,40 +1,43 @@
 <?php
+$logger_path = $_SERVER['DOCUMENT_ROOT']."/_includes/logger.php";
+include_once($logger_path);
+
 class simpleTest extends PHPUnit_Framework_TestCase
 {
 	public static function setUpBeforeClass() {
-		echo 'Setting up simpleTest class'.PHP_EOL;
+		$testlog->trace('Setting up simpleTest class');
 	}
 	
 	public static function tearDownAfterClass() {
-		echo 'Tearing down simpleTest class'.PHP_EOL;
+		$testlog->trace('Tearing down simpleTest class');
 	}
 	
 	protected function setUp() {
-		echo 'Setting up function'.PHP_EOL;
+		$testlog->trace('Setting up function');
 	}
 	
 	protected function tearDown() {
-		echo 'Tearing down function'.PHP_EOL;
+		$testlog->trace('Tearing down function');
 	}
 	
     public function testStringComparison()
     {
         $testStr = "test123";
-        echo 'Checking string with assertEquals'.PHP_EOL;
+        $testlog->trace('Checking string with assertEquals');
         $this->assertEquals("test123", $testStr);
  
-        echo 'Checking string with assertFalse'.PHP_EOL;
+        $testlog->trace('Checking string with assertFalse');
         $this->assertFalse($testStr == "test");
         
-        echo 'Checking string with assertNotEquals'.PHP_EOL;
+        $testlog->trace('Checking string with assertNotEquals');
         $this->assertNotEquals("test", $testStr);
         
-        echo 'Checking string with assertTrue'.PHP_EOL;
+        $testlog->trace('Checking string with assertTrue');
         $this->assertTrue($testStr == "test123");
     }
     
     public function testMath() {
-    	echo 'Check 2+2=4'.PHP_EOL;
+    	$testlog->trace('Check 2+2=4');
     	$this->assertEquals(4, 2+2);
     }
 }
