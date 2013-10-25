@@ -1,7 +1,7 @@
 <?php
 include_once('log4php/Logger.php');
 
-$log4php_config_path = "/var/www/resources/log4php_config.xml";
+$log4php_config_path = "./resources/log4php_config.xml";
 Logger::configure($log4php_config_path);
 
 class baseTestCase extends PHPUnit_Framework_TestCase
