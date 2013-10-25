@@ -6,7 +6,7 @@ class simpleTest extends baseTestCase
     public function testStringComparison()
     {
         $testStr = "test123";
-        $this->testlog->trace('Checking string with assertEquals2');
+        $this->testlog->trace('Checking string with assertEquals3');
         $this->assertEquals("test123", $testStr);
  
         $this->testlog->trace('Checking string with assertFalse');
