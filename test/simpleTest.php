@@ -1,4 +1,6 @@
 <?php
+include_once('baseTestCase.php');
+
 class simpleTest extends baseTestCase
 {
     public function testStringComparison()

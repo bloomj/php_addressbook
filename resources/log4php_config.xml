@@ -2,14 +2,14 @@
 <configuration xmlns="http://logging.apache.org/log4php/">
 	<appender name="default" class="LoggerAppenderDailyFile">
 		<layout class="LoggerLayoutPattern">
-			<param name="conversionPattern" value="%date{m-d-Y H:i:s,u} [%process] %logger %-5level %file: %msg - In %class.%method (line: %line)%n" />
+			<param name="conversionPattern" value="%date{m-d-Y H:i:s,u} [%process] %logger %-5level %file (%class.%method line: %line): %msg%n" />
 		</layout>
 		<param name="file" value="/var/log/apache2/php_addressbook-%s.log" />
 		<param name="datePattern" value="Y-m-d" />
 	</appender>
 	<appender name="echo" class="LoggerAppenderEcho">
 		<layout class="LoggerLayoutPattern">
-			<param name="conversionPattern" value="%date{m-d-Y H:i:s,u} [%process] %logger %-5level %file: %msg - In %class.%method (line: %line)%n" />
+			<param name="conversionPattern" value="%date{m-d-Y H:i:s,u} [%process] %logger %-5level %file (%class.%method line: %line): %msg%n" />
 		</layout>
 		<param name="htmlLineBreaks" value="false" />
 	</appender>
