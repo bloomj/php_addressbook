@@ -10,7 +10,7 @@ class simpleTest extends baseTestCase
         $this->assertEquals("test123", $testStr);
  
         $this->testlog->trace('Checking string with assertFalse');
-        $this->assertFalse($testStr == "test");
+        $this->assertFalse($testStr != "test");
         
         $this->testlog->trace('Checking string with assertNotEquals');
         $this->assertNotEquals("test", $testStr);
