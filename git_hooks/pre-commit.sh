@@ -48,4 +48,12 @@ if ($returnCode !== 0) {
 
 echo '>> All tests for ' . $projectName . ' passed.' . PHP_EOL;
 echo PHP_EOL;
+
+echo '>> Copying test results to remote server'.PHP_EOL;
+exec('scp -r ./test jim@192.168.1.191:/var/www', $output, $returnCode);
+if ($returnCode !== 0) {
+	echo '>> Failed to copy test results to remote server'.PHP_EOL;
+	exit(1);
+}
+
 exit(0);
