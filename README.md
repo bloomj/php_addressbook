@@ -18,6 +18,7 @@ Currently demonstrates
 * Apache
 * MySQL
 * log4php
+* PHPUnit
   
 TODO
 -------------------------
