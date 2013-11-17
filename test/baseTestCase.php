@@ -14,20 +14,20 @@ class baseTestCase extends PHPUnit_Framework_TestCase
 	
 	public static function setUpBeforeClass() {
 		$testlog = Logger::getLogger('unittest');
-		$testlog->trace('Setting up simpleTest class');
+		$testlog->trace('Setting up class');
 	}
 
 	public static function tearDownAfterClass() {
 		$testlog = Logger::getLogger('unittest');
-		$testlog->trace('Tearing down simpleTest class');
+		$testlog->trace('Tearing down class');
 	}
 
 	protected function setUp() {
-		$this->testlog->trace('Setting up function');
+		$this->testlog->trace('Setting up test: '.$this->getName());
 	}
 
 	protected function tearDown() {
-		$this->testlog->trace('Tearing down function');
+		//$this->testlog->trace('Tearing down function');
 	}
 }
 ?>
