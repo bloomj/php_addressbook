@@ -254,7 +254,7 @@ class doublyLinkedListTest extends baseTestCase {
 	public function testGetNode() {
 		$x = $this->addRandomNodes();
 		
-		$node = $this->list->getNode($this->list->getFirstNode(), true);
+		$node = $this->list->getNode($this->list->getFirstNode(), false);
 		
 		// check data
 		$this->assertEquals($node->getData(), $this->list->getFirstNode()->getData());
