@@ -90,7 +90,6 @@
 			$this->firstNode = null;
 			$this->lastNode = null;
 			$this->count = 0;
-			$this->testlog = Logger::getLogger('unittest');
 		}
 		
 		/**
