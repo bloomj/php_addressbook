@@ -209,10 +209,7 @@
 			$_node->next = $curNode->next;
 			$curNode->next = $_node;
 			
-			if ($this->lastNode == null) {
-				$this->lastNode = &$_node->next;
-			}
-			else if($_node->next == null) {
+			if($_node->next == null) {
 				$this->lastNode = $_node;
 			}
 			

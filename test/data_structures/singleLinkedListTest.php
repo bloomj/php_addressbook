@@ -219,6 +219,19 @@ class singleLinkedListTest extends baseTestCase {
 	}
 	
 	/**
+	 * Tests SingleLinkedList function insertAfter for expected exception
+	 *
+	 * @expectedException Exception
+	 * @expectedExceptionMessage Node not found
+	 */
+	public function testinsertAfterNodeNotFoundException()
+	{	
+		$node = new SingleLinkNode();
+		$node->setData("NodeUnknown");
+		$this->list->insertAfter($node, new SingleLinkNode());
+	}
+	
+	/**
 	 * Tests SingleLinkedList function getNode
 	 */
 	public function testGetNode() {
@@ -360,6 +373,19 @@ class singleLinkedListTest extends baseTestCase {
 	}
 	
 	/**
+	 * Tests SingleLinkedList function removeAfter for expected exception
+	 *
+	 * @expectedException Exception
+	 * @expectedExceptionMessage Node not found
+	 */
+	public function testRemoveAfterNodeNotFoundException()
+	{
+		$node = new SingleLinkNode();
+		$node->setData("NodeUnknown");
+		$this->list->removeAfter($node);
+	}
+	
+	/**
 	 * Tests SingleLinkedList function reverseList
 	 */
 	public function testReverseList() {
@@ -387,7 +413,7 @@ class singleLinkedListTest extends baseTestCase {
 	 * @return count of nodes added
 	 */
 	private function addRandomNodes() {
-		$iterations = rand(1,10);
+		$iterations = rand(3,10);
 		$this->testlog->trace("Random iterations: ".$iterations);
 		
 		for($x=0; $x < $iterations; $x++) {
