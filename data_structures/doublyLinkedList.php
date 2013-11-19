@@ -1,13 +1,13 @@
 <?php
 	/**
-	 * Simple link node class for single linked lists
+	 * Simple double node class for doubly linked lists
 	 * 
 	 * @author jim
 	 * @version 1.0
 	 * @package php_addressbook.data_structures
 	 *
 	 */
-	class SingleLinkNode {
+	class DoubleLinkNode {
 		/**
 		 * Data of the Node
 		 * 
@@ -17,9 +17,15 @@
 		/**
 		 * Next Node in the List
 		 * 
-		 * @var SingleLinkNode
+		 * @var DoubleLinkNode
 		 */
 		public $next;
+		/**
+		 * Previous Node in the List
+		 *
+		 * @var DoubleLinkNode
+		 */
+		public $prev;
 		
 		/**
 		 * Constructor
@@ -27,6 +33,7 @@
 		public function __construct() {
 			$this->data = null;
 			$this->next = null;	
+			$this->prev = null;
 		}
 		
 		/**
@@ -49,24 +56,24 @@
 	}
 	
 	/**
-	 * Single linked list class implementation
+	 * Doubly linked list class implementation
 	 * 
 	 * @author jim
 	 * @version 1.0
 	 * @package php_addressbook.data_structures
 	 * 
 	 */
-	class SingleLinkedList {
+	class DoublyLinkedList {
 		/**
 		 * First Node of the Linked List
 		 * 
-		 * @var SingleLinkNode
+		 * @var DoubleLinkNode
 		 */
 		private $firstNode;
 		/**
 		 * Last Node of the Linked List
 		 * 
-		 * @var SingleLinkNode
+		 * @var DoubleLinkNode
 		 */
 		private $lastNode;
 		/**
@@ -110,22 +117,38 @@
 		
 		/**
 		 * Returns readable concatenation of Node data
+		 * Can traverse the list backwards and forwards
 		 * 
 		 * @param string $delimiter
+		 * @param bool $forward
 		 */
-		public function toString($delimiter=",") {
+		public function toString($delimiter=",",$forward=true) {
 			$result = "";
 			
 			$curNode = $this->firstNode;
+			if(!$forward) {
+				$curNode = $this->lastNode;
+				if($curNode != null) {
+					$result = $curNode->getData();
+				}
+			}
 			
 			// traverse list to concatenate a string result
 			while($curNode != null) {
-				$result = $result.$curNode->getData();
-
-				$curNode = $curNode->next;
-				
-				if($curNode != null) {
-					$result = $result.$delimiter;
+				if($forward) {
+					$result = $result.$curNode->getData();
+					$curNode = $curNode->next;
+					
+					if($curNode != null) {
+						$result = $result.$delimiter;
+					}
+				}
+				else {
+					$curNode = $curNode->prev;
+					
+					if($curNode != null) {
+						$result = $curNode->getData().$delimiter.$result;
+					}
 				}
 			}
 				
@@ -135,7 +158,7 @@
 		/**
 		 * Gets first node of Linked List
 		 * 
-		 * @return SingleLinkNode
+		 * @return DoubleLinkNode
 		 */
 		public function getFirstNode() {
 			return $this->firstNode;
@@ -144,7 +167,7 @@
 		/**
 		 * Gets last node of Linked List
 		 * 
-		 * @return SingleLinkNode
+		 * @return DoubleLinkNode
 		 */
 		public function getLastNode() {
 			return $this->lastNode;
@@ -153,12 +176,15 @@
 		/**
 		 * Inserts a node at the beginning of the Linked List
 		 * 
-		 * @param SingleLinkNode $_node
+		 * @param DoubleLinkNode $_node
 		 * @throws Exception
 		 */
 		public function insertFirst($_node) {
 			$this->checkNode($_node,"");
 			
+			if($this->firstNode != null) {
+				$this->firstNode->prev = $_node;
+			}
 			$_node->next = $this->firstNode;
 			$this->firstNode = $_node;
 			
@@ -172,7 +198,7 @@
 		/**
 		 * Inserts a node at the end of the Linked List
 		 * 
-		 * @param SingleLinkNode $_node
+		 * @param DoubleLinkNode $_node
 		 * @throws Exception
 		 */
 		public function insertLast($_node) {
@@ -182,6 +208,7 @@
 				$this->insertFirst($_node);
 			}
 			else {
+				$_node->prev = $this->lastNode;
 				$this->lastNode->next = $_node;
 				$this->lastNode = &$_node;
 				
@@ -192,21 +219,23 @@
 		/**
 		 * Inserts a node after the given parent node
 		 * 
-		 * @param SingleLinkNode $_parentNode
-		 * @param SingleLinkNode $_node
+		 * @param DoubleLinkNode $_parentNode
+		 * @param DoubleLinkNode $_node
 		 * @throws Exception
 		 */
 		public function insertAfter($_parentNode, $_node) {
 			$this->checkNode($_node,"Parent");
 			
-			$curNode = $this->getNode($_parentNode);
+			$curNode = $this->getNode($_parentNode, true);
 			
 			// if getNode comes back null, the _parentNode isn't in this list
 			if($curNode == null) {
 				throw new Exception("Node not found");
 			}
 			
+			$_node->prev = $curNode;
 			$_node->next = $curNode->next;
+			$curNode->next->prev = $_node;
 			$curNode->next = $_node;
 			
 			if($_node->next == null) {
@@ -218,19 +247,29 @@
 		
 		/**
 		 * Gets a given node of the Linked List
+		 * Traverses either forward or backward
 		 * 
-		 * @param SingleLinkNode $_node
+		 * @param DoubleLinkNode $_node
+		 * @param bool $forward
 		 * @throws Exception
-		 * @return SingleLinkNode
+		 * @return DoubleLinkNode
 		 */
-		public function getNode($_node) {
+		public function getNode($_node, $forward=true) {
 			$this->checkNode($_node,"");
 			
 			$curNode = $this->firstNode;
+			if(!$forward) {
+				$curNode = $this->lastNode;
+			}
 				
 			// traverse list to find parent node passed in
 			while($curNode != null && $curNode->getData() != $_node->getData()) {
-				$curNode = $curNode->next;
+				if($forward) {
+					$curNode = $curNode->next;
+				}
+				else {
+					$curNode = $curNode->prev;
+				}
 			}
 			
 			return $curNode;
@@ -294,13 +333,13 @@
 		/**
 		 * Removes a node after the given parent node
 		 * 
-		 * @param SingleLinkNode $_parentNode
+		 * @param DoubleLinkNode $_parentNode
 		 * @throws Exception
 		 */
 		public function removeAfter($_parentNode) {
 			$this->checkNode($_parentNode,"Parent");
 			
-			$curNode = $this->getNode($_parentNode);
+			$curNode = $this->getNode($_parentNode, true);
 			
 			// if getNode comes back null, the _parentNode isn't in this list
 			if($curNode == null) {
@@ -309,7 +348,10 @@
 			
 			$tempNode = $curNode->next;
 			$curNode->next = $tempNode->next;
+			$tempNode->next->prev = $curNode;
+			
 			$tempNode->next = null;
+			$tempNode->prev = null;
 			
 			$this->count--;	
 		}
@@ -334,6 +376,8 @@
 	                    $temp = $current->next;
 	                    // break link and reset to previous node
 	                    $current->next = $new;
+	                    // set previous link to temp
+	                    $current->prev = $temp;
 	                    // set new previous node
 	                    $new = $current;
 	                    // set new current node
@@ -345,9 +389,9 @@
 		}
 		
 		/**
-		 * Checks for null or non SingleListNode variables
+		 * Checks for null or non DoubleLinkNode variables
 		 * 
-		 * @param SingleListNode $_node
+		 * @param DoubleLinkNode $_node
 		 * @param string $str
 		 * @throws Exception
 		 */
@@ -355,8 +399,8 @@
 			if($_node == null) {
 				throw new Exception($str."Node is null");
 			}
-			if(!($_node instanceof SingleLinkNode)) {
-				throw new Exception($str."Node is not an instance of SingleLinkNode");
+			if(!($_node instanceof DoubleLinkNode)) {
+				throw new Exception($str."Node is not an instance of DoubleLinkNode");
 			}
 		}
 	}
