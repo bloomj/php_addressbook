@@ -23,27 +23,9 @@
 		/**
 		 * Address of Person's residence
 		 * 
-		 * @var string
+		 * @var array
 		 */
 		private $address;
-		/**
-		 * City of Person's residence
-		 * 
-		 * @var string
-		 */
-		private $city;
-		/**
-		 * State of Person's residence
-		 * 
-		 * @var string
-		 */
-		private $state;
-		/**
-		 * Zip of Person's residence
-		 * 
-		 * @var string
-		 */
-		private $zip;
 		/**
 		 * Phone Number of Person
 		 * 
@@ -63,24 +45,16 @@
 		 * 
 		 * @param string $_firstName
 		 * @param string $_lastName
-		 * @param string $_address
-		 * @param string $_city
-		 * @param string $_state
-		 * @param string $_zip
+		 * @param array $_address
 		 * @param string $_phone
 		 */
 		public static function person(/*String*/ $_firstName, /*String*/ $_lastName, 
-							/*String*/ $_address, /*String*/ $_city, 
-							/*String*/ $_state, /*String*/ $_zip, 
-							/*String*/ $_phone) {
+							/*array*/ $_address, /*String*/ $_phone) {
 			$obj = new Person();
 							
 			$obj->firstName = $_firstName;
 			$obj->lastName = $_lastName;
 			$obj->address = $_address;
-			$obj->city = $_city;
-			$obj->state = $_state;
-			$obj->zip = $_zip;
 			$obj->phone = $_phone;
 			
 			return $obj;
@@ -123,75 +97,21 @@
 		}
 		
 		/**
-		 * Gets Person's address
+		 * Gets Person's addresses
 		 * 
-		 * @return string
+		 * @return array
 		 */
 		public function getAddress() {
 			return $this->address;
 		}
 		
 		/**
-		 * Sets Person's address
+		 * Sets Person's addresses
 		 * 
-		 * @param string $_address
+		 * @param string array
 		 */
 		public function setAddress($_address) {
 			$this->address = $_address;
-		}
-		
-		/**
-		 * Gets Person's city
-		 * 
-		 * @return string
-		 */
-		public function getCity() {
-			return $this->city;
-		}
-		
-		/**
-		 * Sets Person's city
-		 * 
-		 * @param string $_city
-		 */
-		public function setCity($_city) {
-			$this->city = $_city;
-		}
-		
-		/**
-		 * Gets Person's state
-		 * 
-		 * @return string
-		 */
-		public function getState() {
-			return $this->state;
-		}
-		
-		/**
-		 * Sets Person's state
-		 * 
-		 * @param string $_state
-		 */
-		public function setState($_state) {
-			$this->state = $_state;
-		}
-		
-		/**
-		 * Gets Person's zip code
-		 * 
-		 * @return string
-		 */
-		public function getZip() {
-			return $this->zip;
-		}
-		
-		/**
-		 * Sets Person's zip code
-		 * 
-		 * @param string $_zip
-		 */
-		public function setZip($_zip) {
-			$this->zip = $_zip;
 		}
 		
 		/**

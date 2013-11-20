@@ -1,6 +1,7 @@
 <?php
 include_once(getcwd().'/test/baseTestCase.php');
 include_once(getcwd().'/entities/person.php');
+include_once(getcwd().'/entities/address.php');
 
 /**
  * This is a unit test class for the Person class
@@ -31,14 +32,17 @@ class personTest extends baseTestCase
 	 * Tests Person overloaded constructor
 	 */
 	public function testPersonConstructor() {
-		$this->person = Person::person("jim", "smith", "1600 Penn Ave", "Pittsburgh", "PA", "123456", "555-123-4567");
+		$this->person = Person::person("jim", "smith", $this->getAddresses(), "555-123-4567");
 		
 		$this->assertEquals("jim",$this->person->getFirstName());
 		$this->assertEquals("smith",$this->person->getLastName());
-		$this->assertEquals("1600 Penn Ave",$this->person->getAddress());
-		$this->assertEquals("Pittsburgh",$this->person->getCity());
-		$this->assertEquals("PA",$this->person->getState());
-		$this->assertEquals("123456",$this->person->getZip());
+		
+		$addArray = $this->person->getAddress();
+		$this->assertEquals("1600 Penn Ave",$addArray[1]->getAddress());
+		$this->assertEquals("Pittsburgh",$addArray[1]->getCity());
+		$this->assertEquals("PA",$addArray[1]->getState());
+		$this->assertEquals("123456",$addArray[1]->getZip());
+		
 		$this->assertEquals("555-123-4567",$this->person->getPhone());
 	}
 	
@@ -82,72 +86,22 @@ class personTest extends baseTestCase
 	 * Tests Person setAddress function
 	 */
 	public function testSetAddress() {
-		$this->person->setAddress("1600 Penn Ave");
-		$this->assertEquals("1600 Penn Ave",$this->person->getAddress());
-		$this->person->setAddress("123 2nd St");
-		$this->assertNotEquals("1600 Penn Ave",$this->person->getAddress());
+		$this->person->setAddress($this->getAddresses());
+		
+		$addArray = $this->person->getAddress();
+		$this->assertEquals("1600 Penn Ave",$addArray[1]->getAddress());
+		$addArray[1]->setAddress("123 2nd St");
+		$this->assertNotEquals("1600 Penn Ave",$addArray[1]->getAddress());
 	}
 	
 	/**
 	 * Tests Person getAddress function
 	 */
 	public function testGetAddress() {
-		$this->person->setAddress("1600 Penn Ave");
-		$this->assertEquals("1600 Penn Ave",$this->person->getAddress());
-	}
-	
-	/**
-	 * Tests Person setCity function
-	 */
-	public function testSetCity() {
-		$this->person->setCity("Pittsburgh");
-		$this->assertEquals("Pittsburgh",$this->person->getCity());
-		$this->person->setCity("Prague");
-		$this->assertNotEquals("Pittsburgh",$this->person->getCity());
-	}
-	
-	/**
-	 * Tests Person getCity function
-	 */
-	public function testGetCity() {
-		$this->person->setCity("Pittsburgh");
-		$this->assertEquals("Pittsburgh",$this->person->getCity());
-	}
-	
-	/**
-	 * Tests Person setState function
-	 */
-	public function testSetState() {
-		$this->person->setState("Pennsylvania");
-		$this->assertEquals("Pennsylvania",$this->person->getState());
-		$this->person->setState("Colorado");
-		$this->assertNotEquals("Pennsylvania",$this->person->getState());
-	}
-	
-	/**
-	 * Tests Person getState function
-	 */
-	public function testGetState() {
-		$this->person->setState("Pennsylvania");
-		$this->assertEquals("Pennsylvania",$this->person->getState());
-	}
-	
-	/**
-	 * Tests Person setZip function
-	 */
-	public function testSetZip() {
-		$this->person->setZip("123456");
-		$this->assertEquals("123456",$this->person->getZip());
-		$this->person->setZip("789456");
-		$this->assertNotEquals("123456",$this->person->getZip());
-	}
-	
-	/**
-	 * Tests Person getZip function
-	 */
-	public function testGetZip() {
-		$this->person->setZip("123456");
-		$this->assertEquals("123456",$this->person->getZip());
+		$this->person->setAddress($this->getAddresses());
+		
+		$addArray = $this->person->getAddress();
+		$this->assertEquals("1600 Penn Ave",$addArray[1]->getAddress());
 	}
 	
 	/**
@@ -166,6 +120,25 @@ class personTest extends baseTestCase
 	public function testGetPhone() {
 		$this->person->setPhone("555-123-4567");
 		$this->assertEquals("555-123-4567",$this->person->getPhone());
+	}
+	
+	/**
+	 * Generate some addresses
+	 * 
+	 * @return multitype:array Address
+	 */
+	private function getAddresses() {
+		$address1 = Address::address("1600 Penn Ave", "Pittsburgh", "PA", "123456");
+		$address2 = Address::address("456 Main Ave", "Munich", "OK", "567123");
+		$address3 = Address::address("123 2nd St", "Kona", "HI", "933326");
+		
+		$addressArray = array(
+			1 => $address1,
+			2 => $address2,
+			3 => $address3
+		);
+		
+		return $addressArray;
 	}
 }
 ?>
