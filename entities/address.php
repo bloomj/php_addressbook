@@ -1,13 +1,13 @@
 <?php
 /**
- * This a basic class for a Adddress object.
+ * This a basic class for a Address object.
  *
  * @author jim
  * @version 1.0
  * @package php_addressbook.entities
  *
  */
-class Address {
+class Address  {
 	/**
 	 * Address of Address
 	 *
