@@ -7,7 +7,13 @@
  * @package php_addressbook.entities
  *
  */
-class Address  {
+class Address implements Serializable {
+	/**
+	 * ID of Address
+	 *
+	 * @var string
+	 */
+	private $id;
 	/**
 	 * Address of Address
 	 *
@@ -37,7 +43,7 @@ class Address  {
 	 * Constructor
 	 */
 	public function __construct() {
-			
+		$this->id = uniqid();
 	}
 
 	/**
@@ -47,11 +53,17 @@ class Address  {
 	 * @param string $_city
 	 * @param string $_state
 	 * @param string $_zip
+	 * @param string $_id
 	 */
 	public static function address(/*String*/ $_address, /*String*/ $_city,
-			/*String*/ $_state, /*String*/ $_zip) {
+			/*String*/ $_state, /*String*/ $_zip, /*String*/ $_id = NULL) {
 			$obj = new Address();
-				
+			
+			$obj->id = $_id;
+			// Give address a unique ID if none passed in
+			if($obj->id == NULL) {
+				$obj->id = uniqid();
+			}
 			$obj->address = $_address;
 			$obj->city = $_city;
 			$obj->state = $_state;
@@ -60,6 +72,15 @@ class Address  {
 			return $obj;
 	}
 
+	/**
+	 * Gets Person's ID
+	 *
+	 * @return string
+	 */
+	public function getID() {
+		return $this->id;
+	}
+	
 	/**
 	 * Gets Person's address
 	 *
@@ -130,6 +151,38 @@ class Address  {
 	 */
 	public function setZip($_zip) {
 		$this->zip = $_zip;
+	}
+	
+	/**
+	 * Serialize the Address object
+	 * 
+	 * (non-PHPdoc)
+	 * @see Serializable::serialize()
+	 */
+	public function serialize() {
+		return serialize(
+			array(
+				'address' => $this->address,
+				'city' => $this->city,
+				'state' => $this->state,
+				'zip' => $this->zip
+			)
+		);
+	}
+	
+	/**
+	 * Unserialize the Address object
+	 * 
+	 * (non-PHPdoc)
+	 * @see Serializable::unserialize()
+	 */
+	public function unserialize($data) {
+		$data = unserialize($data);
+		
+		$this->address = $data['address'];
+		$this->city = $data['city'];
+		$this->state = $data['state'];
+		$this->zip = $data['zip'];
 	}
 }
 ?>
