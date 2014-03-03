@@ -37,6 +37,20 @@ class addressTest extends baseTestCase
 		$this->assertEquals("Pittsburgh",$this->address->getCity());
 		$this->assertEquals("PA",$this->address->getState());
 		$this->assertEquals("123456",$this->address->getZip());
+		$this->assertNotEquals("",$this->address->getID());
+		
+		// cover both cases
+		$this->address = Address::address("1600 Penn Ave", "Pittsburgh", "PA", "123456", "123");
+		
+		$this->assertEquals("123",$this->address->getID());
+	}
+	
+	/**
+	 * Tests Address getID function
+	 */
+	public function testGetID() {
+		// should be set in constructor
+		$this->assertNotEquals("",$this->address->getID());
 	}
 	
 	/**
@@ -109,6 +123,32 @@ class addressTest extends baseTestCase
 	public function testGetZip() {
 		$this->address->setZip("123456");
 		$this->assertEquals("123456",$this->address->getZip());
+	}
+	
+	/**
+	 * Tests Address serialize function
+	 */
+	public function testSerialize() {
+		$this->address = Address::address("1600 Penn Ave", "Pittsburgh", "PA", "123456");
+		
+		$sData = $this->address->serialize();
+		$this->assertNotEquals($sData, "");
+	}
+	
+	/**
+	 * Tests Address unserialize function
+	 */
+	public function testUnserialize() {
+		$this->address = Address::address("1600 Penn Ave", "Pittsburgh", "PA", "123456");
+		
+		$sData = $this->address->serialize();
+		$this->assertNotEquals($sData, "");
+		
+		$this->address->unserialize($sData);
+		$this->assertEquals("1600 Penn Ave", $this->address->getAddress());
+		$this->assertEquals("Pittsburgh", $this->address->getCity());
+		$this->assertEquals("PA", $this->address->getState());
+		$this->assertEquals("123456", $this->address->getZip());
 	}
 }
 ?>

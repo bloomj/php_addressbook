@@ -7,7 +7,7 @@
 	 * @package php_addressbook.entities
 	 *
 	 */
-	class Person {
+	class Person implements Serializable {
 		/**
 		 * First Name of Person
 		 * 
@@ -130,6 +130,38 @@
 		 */
 		public function setPhone($_phone) {
 			$this->phone = $_phone;
+		}
+		
+		/**
+		 * Serialize the Person object
+		 *
+		 * (non-PHPdoc)
+		 * @see Serializable::serialize()
+		 */
+		public function serialize() {
+			return serialize(
+				array(
+					'firstName' => $this->firstName,
+					'lastName' => $this->lastName,
+					'address' => $this->address,
+					'phone' => $this->phone
+				)
+			);
+		}
+		
+		/**
+		 * Unserialize the Person object
+		 *
+		 * (non-PHPdoc)
+		 * @see Serializable::unserialize()
+		 */
+		public function unserialize($data) {
+			$data = unserialize($data);
+		
+			$this->firstName = $data['firstName'];
+			$this->lastName = $data['lastName'];
+			$this->address = $data['address'];
+			$this->phone = $data['phone'];
 		}
 	}
 ?>

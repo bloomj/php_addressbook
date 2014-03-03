@@ -123,6 +123,39 @@ class personTest extends baseTestCase
 	}
 	
 	/**
+	 * Tests Person serialize function
+	 */
+	public function testSerialize() {
+		$this->person = Person::person("jim", "smith", $this->getAddresses(), "555-123-4567");
+	
+		$sData = $this->person->serialize();
+		$this->assertNotEquals($sData, "");
+	}
+	
+	/**
+	 * Tests Person unserialize function
+	 */
+	public function testUnserialize() {
+		$this->person = Person::person("jim", "smith", $this->getAddresses(), "555-123-4567");
+		
+		$sData = $this->person->serialize();
+		$this->assertNotEquals($sData, "");
+	
+		$this->person->unserialize($sData);
+		
+		$this->assertEquals("jim",$this->person->getFirstName());
+		$this->assertEquals("smith",$this->person->getLastName());
+		
+		$addArray = $this->person->getAddress();
+		$this->assertEquals("1600 Penn Ave",$addArray[1]->getAddress());
+		$this->assertEquals("Pittsburgh",$addArray[1]->getCity());
+		$this->assertEquals("PA",$addArray[1]->getState());
+		$this->assertEquals("123456",$addArray[1]->getZip());
+		
+		$this->assertEquals("555-123-4567",$this->person->getPhone());
+	}
+	
+	/**
 	 * Generate some addresses
 	 * 
 	 * @return multitype:array Address
