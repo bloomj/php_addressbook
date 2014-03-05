@@ -64,7 +64,7 @@ class addressDaoImplTest extends baseTestCase
 		
 		// now update the address, store, and re-read to verify contents
 		$this->address->setAddress("123 2nd St");
-		$this->address->setZip("77777");
+		$this->address->setZip("777");
 		
 		$this->addressDAO->store($this->address);
 		
@@ -72,11 +72,20 @@ class addressDaoImplTest extends baseTestCase
 		
 		$this->assertEquals($address_id, $this->address->getID());
 		$this->assertEquals("123 2nd St",$this->address->getAddress());
-		$this->assertEquals("77777",$this->address->getZip());
+		$this->assertEquals("777",$this->address->getZip());
 		
 		// delete our test Address
 		$this->addressDAO->delete($this->address->getID());
-		
+	}
+	
+	/**
+	 * Tests AddressDAO function read for file not found exception
+	 *
+	 * @expectedException Exception
+	 * @expectedExceptionMessage File: address_1 does not exist
+	 */
+	public function testReadFileDNEException()
+	{
 		// test non-existent Address
 		$this->addressDAO->read("1");
 	}
