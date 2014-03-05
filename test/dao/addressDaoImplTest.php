@@ -75,7 +75,10 @@ class addressDaoImplTest extends baseTestCase
 		$this->assertEquals("777",$this->address->getZip());
 		
 		// delete our test Address
-		//$this->addressDAO->delete($this->address->getID());
+		$this->addressDAO->delete($this->address->getID());
+		
+		// test non-existent Address
+		$this->addressDAO->read("1");
 	}
 	
 	/**
