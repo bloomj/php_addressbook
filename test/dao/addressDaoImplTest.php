@@ -91,17 +91,40 @@ class addressDaoImplTest extends baseTestCase
 	}
 	
 	/**
-	 * Tests AddressDAOImpl read function
+	 * Tests AddressDAOImpl read exception
 	 */
-	public function testRead() {
-		//$this->addressDAO->read("1");
+	public function testReadException() {
+		// store address
+		$this->addressDAO->store($this->address);
+		$address_id = $this->address->getID();
+		
+		// get file resource to force error
+		$file_name = 'address_'.$address_id;
+		$handle = fopen($file_name, 'w');
+		
+		try {
+			// try to read address
+			$this->address = $this->addressDAO->read($this->address->getID());
+		}
+		catch(Exception $e) {
+			$this->assertEquals("fread(): Length parameter must be greater than 0",$e->getMessage());
+		}
+		
+		fclose($handle);
+		
+		// delete our test Address
+		$this->addressDAO->delete($this->address->getID());
 	}
 	
 	/**
-	 * Tests AddressDAOImpl delete function
+	 * Tests AddressDAOImpl delete exception
+	 * 
+	 * @expectedException Exception
+	 * @expectedExceptionMessage No such file or directory
 	 */
-	public function testDelete() {
-		//$this->addressDAO->delete("1");
+	public function testDeleteException() {
+		// try to delete Address
+		$this->addressDAO->delete("DoesNotExist");
 	}
 }
 ?>
