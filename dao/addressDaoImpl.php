@@ -42,15 +42,9 @@ class AddressImpl implements IAddressDAO {
 		
 		$success = false;
 		$file_name = 'address_'.$address->getID();
-		try {
-			$handle = fopen($file_name, 'w') or die('Cannot open file:  '.$file_name);
-			fwrite($handle, $address->serialize());
-			$success = true;
-		}
-	    catch(Exception $e) {
-            $this->log->error("Exception writing file: ".$file_name, $e);
-            throw $e;
-        }
+		
+		$handle = fopen($file_name, 'w') or die('Cannot open file:  '.$file_name);
+		$success = fwrite($handle, $address->serialize());
 
 		fclose($handle);
 		

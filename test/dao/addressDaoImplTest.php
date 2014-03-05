@@ -82,12 +82,12 @@ class addressDaoImplTest extends baseTestCase
 	 * Tests AddressDAO function read for file not found exception
 	 *
 	 * @expectedException Exception
-	 * @expectedExceptionMessage File: address_11 does not exist
+	 * @expectedExceptionMessage File: address_1 does not exist
 	 */
 	public function testReadFileDNEException()
 	{
 		// test non-existent Address
-		$this->addressDAO->read("11");
+		$this->addressDAO->read("1");
 	}
 	
 	/**
