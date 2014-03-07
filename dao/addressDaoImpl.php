@@ -6,14 +6,14 @@ $log4php_config_path = "./resources/log4php_config.xml";
 Logger::configure($log4php_config_path);
 
 /**
- * This a basic class for a AddressImpl object.
+ * This a basic class for a AddressDaoImpl object.
  *
  * @author jim
  * @version 1.0
  * @package php_addressbook.dao
  *
  */
-class AddressImpl implements IAddressDAO {
+class AddressDaoImpl implements IAddressDAO {
 	/**
 	 * Logger
 	 * @var Logger
@@ -45,7 +45,6 @@ class AddressImpl implements IAddressDAO {
 		
 		$handle = fopen($file_name, 'w') or die('Cannot open file:  '.$file_name);
 		$success = fwrite($handle, $address->serialize());
-
 		fclose($handle);
 		
 		return $success;

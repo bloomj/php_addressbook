@@ -32,7 +32,7 @@ class addressDaoImplTest extends baseTestCase
 	 */
 	public function __construct() {
 		parent::__construct();	
-		$this->addressDAO = new AddressImpl();
+		$this->addressDAO = new AddressDaoImpl();
 	}
 	
 	/**
@@ -42,6 +42,7 @@ class addressDaoImplTest extends baseTestCase
 	protected function setUp() {
 		parent::setUp();
 		$this->testlog->trace('Re-initializing Address object');
+		$this->addressDAO = new AddressDaoImpl();
 		$this->address = Address::address("1600 Penn Ave", "Pittsburgh", "PA", "123456");
 	}
 	
