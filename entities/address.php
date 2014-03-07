@@ -162,6 +162,7 @@ class Address implements Serializable {
 	public function serialize() {
 		return serialize(
 			array(
+				'id' => $this->id,
 				'address' => $this->address,
 				'city' => $this->city,
 				'state' => $this->state,
@@ -179,6 +180,7 @@ class Address implements Serializable {
 	public function unserialize($data) {
 		$data = unserialize($data);
 		
+		$this->id = $data['id'];
 		$this->address = $data['address'];
 		$this->city = $data['city'];
 		$this->state = $data['state'];

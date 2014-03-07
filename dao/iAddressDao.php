@@ -14,6 +14,8 @@ interface IAddressDAO extends IDAO {
 	 * Create or update an Address object.
 	 * 
 	 * @param Address $address
+	 * @throws Exception
+	 * @return boolean
 	 */
 	public function store($address);
 	
@@ -21,6 +23,8 @@ interface IAddressDAO extends IDAO {
 	 * Read an Address object.
 	 * 
 	 * @param String $id
+	 * @throws Exception
+	 * @return Address
 	 */
 	public function read($id);
 	
@@ -28,6 +32,8 @@ interface IAddressDAO extends IDAO {
 	 * Delete an Address object.
 	 * 
 	 * @param String $id
+	 * @throws Exception
+	 * @return boolean
 	 */
 	public function delete($id);
 }
