@@ -9,6 +9,12 @@
 	 */
 	class Person implements Serializable {
 		/**
+		 * ID of Person
+		 *
+		 * @var string
+		 */
+		private $id;
+		/**
 		 * First Name of Person
 		 * 
 		 * @var string
@@ -37,7 +43,7 @@
 		 * Constructor
 		 */
 		public function __construct() {
-			
+			$this->id = uniqid();
 		}
 		
 		/**
@@ -49,15 +55,29 @@
 		 * @param string $_phone
 		 */
 		public static function person(/*String*/ $_firstName, /*String*/ $_lastName, 
-							/*array*/ $_address, /*String*/ $_phone) {
+							/*array*/ $_address, /*String*/ $_phone, /*String*/ $_id = NULL) {
 			$obj = new Person();
-							
+
+			$obj->id = $_id;
+			// Give address a unique ID if none passed in
+			if($obj->id == NULL) {
+				$obj->id = uniqid();
+			}
 			$obj->firstName = $_firstName;
 			$obj->lastName = $_lastName;
 			$obj->address = $_address;
 			$obj->phone = $_phone;
 			
 			return $obj;
+		}
+		
+		/**
+		 * Gets Person's ID
+		 *
+		 * @return string
+		 */
+		public function getID() {
+			return $this->id;
 		}
 		
 		/**
@@ -141,6 +161,7 @@
 		public function serialize() {
 			return serialize(
 				array(
+					'id' => $this->id,
 					'firstName' => $this->firstName,
 					'lastName' => $this->lastName,
 					'address' => $this->address,
@@ -158,6 +179,7 @@
 		public function unserialize($data) {
 			$data = unserialize($data);
 		
+			$this->id = $data['id'];
 			$this->firstName = $data['firstName'];
 			$this->lastName = $data['lastName'];
 			$this->address = $data['address'];

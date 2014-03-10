@@ -42,8 +42,17 @@ class personTest extends baseTestCase
 		$this->assertEquals("Pittsburgh",$addArray[1]->getCity());
 		$this->assertEquals("PA",$addArray[1]->getState());
 		$this->assertEquals("123456",$addArray[1]->getZip());
+		$this->assertNotEquals("",$this->person->getID());
 		
 		$this->assertEquals("555-123-4567",$this->person->getPhone());
+	}
+	
+	/**
+	 * Tests Address getID function
+	 */
+	public function testGetID() {
+		// should be set in constructor
+		$this->assertNotEquals("",$this->person->getID());
 	}
 	
 	/**
@@ -151,6 +160,7 @@ class personTest extends baseTestCase
 		$this->assertEquals("Pittsburgh",$addArray[1]->getCity());
 		$this->assertEquals("PA",$addArray[1]->getState());
 		$this->assertEquals("123456",$addArray[1]->getZip());
+		$this->assertNotEquals("",$this->person->getID());
 		
 		$this->assertEquals("555-123-4567",$this->person->getPhone());
 	}

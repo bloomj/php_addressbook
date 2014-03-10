@@ -73,7 +73,7 @@ class Address implements Serializable {
 	}
 
 	/**
-	 * Gets Person's ID
+	 * Gets Address' ID
 	 *
 	 * @return string
 	 */

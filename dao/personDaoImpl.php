@@ -1,19 +1,19 @@
 <?php
-include_once('iAddressDao.php');
+include_once('iPersonDao.php');
 include_once('log4php/Logger.php');
 
 $log4php_config_path = "./resources/log4php_config.xml";
 Logger::configure($log4php_config_path);
 
 /**
- * This a basic class for a AddressDaoImpl object.
+ * This a basic class for a PersonDaoImpl object.
  *
  * @author jim
  * @version 1.0
  * @package php_addressbook.dao
  *
  */
-class AddressDaoImpl implements IAddressDAO {
+class PersonDaoImpl implements IPersonDAO {
 	/**
 	 * Logger
 	 * @var Logger
@@ -21,7 +21,7 @@ class AddressDaoImpl implements IAddressDAO {
 	protected static $log;
 	
 	/**
-	 * Data directory for Address data files
+	 * Data directory for Person data files
 	 * @var String
 	 */
 	private static $dataDir = "";
@@ -31,68 +31,68 @@ class AddressDaoImpl implements IAddressDAO {
 	}
 	
 	/**
-	 * Create or update an Address object.
+	 * Create or update an Person object.
 	 * 
-	 * @param Address $address
+	 * @param Person $address
 	 * @throws Exception
 	 * @return boolean
 	 */
-	public function store($address) {
-		$this->log->info("Storing address: ".$address->getID());
+	public function store($person) {
+		$this->log->info("Storing person: ".$person->getID());
 		
 		$success = false;
-		$file_name = 'address_'.$address->getID();
+		$file_name = 'person_'.$person->getID();
 		
 		$handle = fopen($file_name, 'w') or die('Cannot open file:  '.$file_name);
-		$success = fwrite($handle, $address->serialize());
+		$success = fwrite($handle, $person->serialize());
 		fclose($handle);
 		
 		return $success;
 	}
 	
 	/**
-	 * Read an Address object.
+	 * Read an Person object.
 	 * 
 	 * @param String $id
 	 * @throws Exception
-	 * @return Address
+	 * @return Person
 	 * 
 	 */
 	public function read($id) {
-		$this->log->info("Reading address: ".$id);
+		$this->log->info("Reading person: ".$id);
 		
-		$file_name = 'address_'.$id;
+		$file_name = 'person_'.$id;
 		
 		if(!file_exists($file_name)) {
 			throw new Exception("File: ".$file_name." does not exist");
 		}
 		
-		$address = new Address();
+		$person = new Person();
 		try {
 			clearstatcache();
 			$handle = fopen($file_name, 'r');
-			$address->unserialize(fread($handle,filesize($file_name)));
+			$person->unserialize(fread($handle,filesize($file_name)));
 		}
 		catch(Exception $e) {
 			$this->log->error("Exception reading file: ".$file_name, $e);
 			throw $e;
 		}
 		
-		return $address;
+		return $person;
 	}
 	
 	/**
-	 * Delete an Address object.
+	 * Delete an Person object.
 	 * 
 	 * @param String $id
 	 * @throws Exception
 	 * @return boolean
 	 */
 	public function delete($id) {
-		$this->log->info("Deleting address: ".$id);
+		$this->log->info("Deleting person: ".$id);
 		
 		$success = false;
-		$file_name = 'address_'.$id;
+		$file_name = 'person_'.$id;
 		try {
 			unlink($file_name);
 			$success = true;
