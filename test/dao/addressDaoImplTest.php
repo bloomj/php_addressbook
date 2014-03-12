@@ -1,7 +1,7 @@
 <?php
 include_once(getcwd().'/test/baseTestCase.php');
 include_once(getcwd().'/entities/address.php');
-include_once(getcwd().'/dao/addressDaoImpl.php');
+include_once(getcwd().'/dao/DAOFactory.php');
 
 /**
  * This is a unit test class for the Address DAO class
@@ -28,11 +28,17 @@ class addressDaoImplTest extends baseTestCase
 	private $addressDAO;
 	
 	/**
+	 * DAOFactory object
+	 *
+	 * @var DAOFactory
+	 */
+	private $DAO;
+	
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
 		parent::__construct();	
-		$this->addressDAO = new AddressDaoImpl();
 	}
 	
 	/**
@@ -42,12 +48,18 @@ class addressDaoImplTest extends baseTestCase
 	protected function setUp() {
 		parent::setUp();
 		$this->testlog->trace('Re-initializing Address object');
-		$this->addressDAO = new AddressDaoImpl();
+		
+		// get our DAO implementation from our Factory
+		$this->DAO = DAOFactory::getInstance();
+		$this->assertNotNull($this->DAO);
+		$this->addressDAO = $this->DAO->getDAO('iAddressDAO');
+		$this->assertNotNull($this->addressDAO);
+		
 		$this->address = Address::address("1600 Penn Ave", "Pittsburgh", "PA", "123456");
 	}
 	
 	/**
-	 * Tests AddressDAOImpl store function
+	 * Tests AddressDAO store function
 	 */
 	public function testStore() {
 		// store address
@@ -92,7 +104,7 @@ class addressDaoImplTest extends baseTestCase
 	}
 	
 	/**
-	 * Tests AddressDAOImpl read exception
+	 * Tests AddressDAO read exception
 	 */
 	public function testReadException() {
 		// store address
@@ -118,7 +130,7 @@ class addressDaoImplTest extends baseTestCase
 	}
 	
 	/**
-	 * Tests AddressDAOImpl delete exception
+	 * Tests AddressDAO delete exception
 	 * 
 	 * @expectedException Exception
 	 * @expectedExceptionMessage No such file or directory
