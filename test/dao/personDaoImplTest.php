@@ -28,11 +28,17 @@ class personDaoImplTest extends baseTestCase
 	private $personDAO;
 	
 	/**
+	 * DAOFactory object
+	 *
+	 * @var DAOFactory
+	 */
+	private $DAO;
+	
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
 		parent::__construct();	
-		$this->personDAO = new PersonDaoImpl();
 	}
 	
 	/**
@@ -42,7 +48,13 @@ class personDaoImplTest extends baseTestCase
 	protected function setUp() {
 		parent::setUp();
 		$this->testlog->trace('Re-initializing Person object');
-		$this->personDAO = new PersonDaoImpl();
+		
+		// get our DAO implementation from our Factory
+		$this->DAO = DAOFactory::getInstance();
+		$this->assertNotNull($this->DAO);
+		$this->personDAO = $this->DAO->getDAO('iPersonDAO');
+		$this->assertNotNull($this->personDAO);
+		
 		$this->person = Person::person("jim", "smith", $this->getAddresses(), "555-123-4567");
 	}
 	
